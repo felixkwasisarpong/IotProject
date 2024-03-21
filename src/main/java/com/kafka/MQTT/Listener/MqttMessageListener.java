@@ -40,7 +40,7 @@ public class MqttMessageListener {
                 public void messageArrived(String topic, MqttMessage message) throws Exception {
                     String payload = new String(message.getPayload());
                     kafkaTemplate.send(mqttTopic, payload);
-                    logger.info("Received message from MQTT and sent to Kafka: {}", payload);
+                 //   logger.info("Received message from MQTT and sent to Kafka: {}", payload);
                 }
 
                 @Override

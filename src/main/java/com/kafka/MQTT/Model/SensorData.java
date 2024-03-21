@@ -1,6 +1,14 @@
 package com.kafka.MQTT.Model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+@Entity
 public class SensorData {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String temperature;
     private String pressure;
     private String altitude;
@@ -10,6 +18,10 @@ public class SensorData {
     private String type;
     private String date ;
     private String time;
+
+    public SensorData() {
+
+    }
 
     public String getTemperature() {
         return temperature;
@@ -27,6 +39,14 @@ public class SensorData {
         this.pressure = pressure;
     }
 
+    public String getSoilmositure() {
+        return soilmositure;
+    }
+
+    public void setSoilmositure(String soilmositure) {
+        this.soilmositure = soilmositure;
+    }
+
     public String getAltitude() {
         return altitude;
     }
@@ -35,13 +55,6 @@ public class SensorData {
         this.altitude = altitude;
     }
 
-    public String getSoilmositure() {
-        return soilmositure;
-    }
-
-    public void setSoilmositure(String soilmositure) {
-        this.soilmositure = soilmositure;
-    }
 
     public String getNote() {
         return note;
