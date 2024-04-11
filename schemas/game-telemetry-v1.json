@@ -1,0 +1,49 @@
+
+{
+  "type": "record",
+  "name": "gametelemetry",
+  "fields": [
+    {
+      "name": "game",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options": ["A", "B", "C"]
+        }
+      }
+    },
+    {
+      "name": "version",
+      "type": {
+        "type": "double",
+        "arg.properties": {
+          "range": {
+            "min": 1,
+            "max": 97
+          }
+        }
+      }
+    },
+    {
+      "name": "premium_player",
+      "default": false,
+      "type": {
+        "type": "boolean"
+      }
+    },
+    {
+      "name": "marketplace",
+      "default": "Unknown",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options": [
+            "X",
+            "Y",
+            "Z"
+          ]
+        }
+      }
+    }
+  ]
+}
