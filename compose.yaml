@@ -22,6 +22,26 @@ services:
     ports:
       - "5434:5432"
 
+  app:
+    build:
+      context: .
+    depends_on:
+      - mosquitto
+      - postgres
+      - kafka-1
+      - kafka-2
+      - kafka-3
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka-1:29092,kafka-2:29093,kafka-3:29094
+      MQTT_BROKER_URL: ws://mosquitto:9001
+      MQTT_TOPIC: Temperature
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/kafka
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DOCKER_COMPOSE_ENABLED: "false"
+    ports:
+      - "8090:8090"
+
 
   prometheus:
     image: prom/prometheus:v2.47.2
