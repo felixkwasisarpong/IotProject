@@ -1,4 +1,4 @@
-version: '3'
+
 services:
   mosquitto:
     image: eclipse-mosquitto
@@ -18,10 +18,10 @@ services:
       POSTGRES_DB: kafka
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
-    expose:
-      - "5433" # Publishes 5433 to other containers but NOT to host machine
+
     ports:
       - "5434:5432"
+
 
   prometheus:
     image: prom/prometheus:v2.47.2
