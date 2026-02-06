@@ -45,9 +45,12 @@ Ports exposed on the host:
 docker compose up -d
 ```
 
-2. Run the Spring Boot app:
+2. Run the Spring Boot app (choose one):
 ```bash
 ./mvnw spring-boot:run
+```
+```bash
+docker compose up -d --build app
 ```
 
 3. Publish a sample MQTT message:
@@ -59,14 +62,26 @@ docker compose exec mosquitto mosquitto_pub \
 
 4. Verify in Postgres:
 ```bash
-docker compose exec postgres psql -U root -d mqtt -c "select * from sensor_data;"
+docker compose exec postgres psql -U root -d kafka -c "select * from sensor_data;"
+```
+
+## Run Spring Boot in Docker
+The `app` service in `compose.yaml` builds the Spring Boot application using Maven and runs it inside a container.
+
+```bash
+docker compose up -d --build app
+```
+
+To rebuild after code changes:
+```bash
+docker compose up -d --build app
 ```
 
 ## Screenshots
-AKHQ live trail log (replace filename as needed):
+AKHQ live trail log:
 ![AKHQ Live Trail Log](docs/Observe.png)
 
-JMeter MQTT testing (replace filename as needed):
+JMeter MQTT testing:
 ![JMeter MQTT Test](docs/Jmeter.png)
 
 ## Message Format
@@ -92,7 +107,7 @@ The notebook `IOT ML Code.ipynb` contains the ML workflow used for irrigation pl
   - Support Vector Classifier
   - GridSearchCV for hyperparameter tuning
 
-Note: The notebook reads `Irrigation Scheduling.csv`, which is not included in the repo.
+Note: The notebook reads `Irrigation Scheduling.csv`.
 
 ## Configuration
 Key settings in `src/main/resources/application.properties`:
@@ -109,9 +124,7 @@ AKHQ is enabled with basic auth:
 - Password: `admin123`
 
 ## Notes
-- The Postgres database name in `compose.yaml` is `kafka`, but the app is configured for `mqtt`. You can either:
-  - Change `POSTGRES_DB` in `compose.yaml` to `mqtt`, or
-  - Update `spring.datasource.url` to use `/kafka`.
+- The default Postgres database name is `kafka`. If you want `mqtt`, update `POSTGRES_DB` in `compose.yaml` and `spring.datasource.url`.
 - `spring.jpa.hibernate.ddl-auto = create` recreates tables on startup.
 
 ## Repo Structure
